@@ -37,10 +37,13 @@ values."
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
      helm
-     ;; auto-completion
+     auto-completion
      ;; better-defaults
      emacs-lisp
-     python
+     (python :variables
+      python-backend 'anaconda
+      python-format-on-save t
+     )
      latex
      ;; git
      ;; markdown
@@ -314,7 +317,10 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
   (setq TeX-auto-save t)
-  )
+  (global-auto-complete-mode t)
+  (setq company-dabbrev-downcase 0)
+  (setq company-idle-delay 0)
+)
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.

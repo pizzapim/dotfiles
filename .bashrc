@@ -108,7 +108,7 @@ if [ -f $ALIASES_FILE ]; then
 fi
 
 ASDF_DIR=$HOME/.asdf
-if [ -f $ASDF_DIR ]; then
+if [ -d $ASDF_DIR ]; then
     . $ASDF_DIR/asdf.sh
     . $ASDF_DIR/completions/asdf.bash
 fi
