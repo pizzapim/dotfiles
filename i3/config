@@ -178,3 +178,4 @@ bindsym $mod+shift+x exec i3lock --nofork  --ignore-empty-password --show-failed
 for_window [class="Spotify"] move to workspace $ws0
 assign [class="Telegram"] $ws9
 for_window [class="keepassxc"] floating enable
+for_window [class="matplotlib"] floating enable

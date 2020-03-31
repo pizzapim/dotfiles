@@ -1,9 +1,13 @@
 #!/bin/bash
-COMMAND="ln --symbolic --force"
+link () {
+	mkdir -p -- "$2"
+	ln --symbolic --force "$PWD"/"$1" "$2"
+}
 
-$COMMAND $PWD/i3 $HOME/.config
-$COMMAND $PWD/compton.conf $HOME/.config
-$COMMAND $PWD/.spacemacs $HOME
-$COMMAND $PWD/.gitconfig $HOME
-$COMMAND $PWD/.bashrc $HOME
-$COMMAND $PWD/.bash_aliases $HOME
+link i3 $HOME/.config
+link compton.conf $HOME/.config
+link .spacemacs $HOME
+link .gitconfig $HOME
+link .bashrc $HOME
+link .bash_aliases $HOME
+link nvim $HOME/.config

@@ -2,4 +2,4 @@
 	email = pim@kunis.nl
 	name = Pim Kunis
 [core]
-	editor = vim
+	editor = nvim

@@ -117,3 +117,5 @@ PATH=$PATH:$HOME/.local/bin
 
 # Add the / on autocomplete of symlink dirs
 bind 'set mark-symlinked-directories on'
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

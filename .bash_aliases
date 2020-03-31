@@ -28,3 +28,5 @@ __git_complete gl _git_log
 alias xdg='xdg-open'
 alias update='sudo apt update'
 alias upgrade='sudo apt upgrade'
+
+alias vi='nvim'
