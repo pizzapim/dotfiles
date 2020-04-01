@@ -1,11 +1,67 @@
-" Set leader key.
+"""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""GLOBAL SETTINGS"""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""VIM SETTINGS""""""""""""""""""
+
 let mapleader = "\<Space>"
 
 filetype plugin on
-set backspace=2
 
-" Open nerdtree with shortcut
-map <C-e> :NERDTreeToggle<CR>
+set nocompatible
+set backspace=2
+set hidden
+set hid
+set nobackup
+set nowritebackup
+set cmdheight=2
+set updatetime=300
+set shortmess+=c
+set signcolumn=yes
+set termguicolors
+set scrolloff=12
+set expandtab
+set shiftwidth=2
+set softtabstop=2
+set autoindent
+set smartindent
+set number
+set colorcolumn=80
+
+" Disable syntax in MarkDown files
+autocmd! bufreadpost *.md set syntax=off
+" Set tab length for C
+autocmd Filetype c setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+" Set tab length for JavaScript
+autocmd Filetype javascript setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+" Remove whitespace on save
+autocmd BufWritePre * %s/\s\+$//e
+
+""""""""""""""""VIM KEYBINDINGS""""""""""""""""""
+
+" Window navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Buffer keybindings
+map <Leader>bn :bn<cr>
+map <Leader>bp :bp<cr>
+map <Leader>bd :bd<cr>
+
+" Tab keybindings
+map tn :tabn<cr>
+map tp :tabp<cr>
+map td :tabd<cr>
+
+" Disable arrow keys
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+
+""""""""""""""""PLUGINS""""""""""""""""""
 
 " Download plug.vim if it is not installed
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -36,7 +92,10 @@ Plug 'liuchengxu/eleline.vim'
 Plug 'Yggdroot/indentLine'
 " Autocompletion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Handy Latex features
 Plug 'lervag/vimtex'
+" Personal knowledge base
+Plug 'vimwiki/vimwiki'
 
 " Always do this one last:
 " Fancy icons in nerdtree (needs patched font)
@@ -44,29 +103,74 @@ Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 
-" COC stuffs
 
-" TextEdit might fail if hidden is not set.
-set hidden
-set hid
+"""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""PLUGIN SETTINGS"""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""
 
-" Some servers have issues with backup files, see #649.
-set nobackup
-set nowritebackup
+"""""""""""""""INDENTLINE"""""""""""""""""
 
-" Give more space for displaying messages.
-set cmdheight=2
+" Hide formatted code when cursor is on line
+let g:indentLine_setConceal = 2
+let g:indentLine_concealcursor = ""
+let g:indentLine_char = "┊"
 
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=300
+"""""""""""""""VIMTEX"""""""""""""""""
 
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
+map <Leader>lc :VimtexCompile<CR>
 
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-set signcolumn=yes
+"""""""""""""""FZF"""""""""""""""""
+
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+ \ 'bg':      ['bg', 'Normal'],
+ \ 'hl':      ['fg', 'Comment'],
+ \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+ \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+ \ 'hl+':     ['fg', 'Statement'],
+ \ 'info':    ['fg', 'PreProc'],
+ \ 'border':  ['fg', 'Ignore'],
+ \ 'prompt':  ['fg', 'Conditional'],
+ \ 'pointer': ['fg', 'Exception'],
+ \ 'marker':  ['fg', 'Keyword'],
+ \ 'spinner': ['fg', 'Label'],
+ \ 'header':  ['fg', 'Comment'] }
+
+let g:fzf_layout = { 'down': '~60%' }
+
+nmap <c-p> :Files<CR>
+nmap <leader>bl :Buffers<CR>
+
+"""""""""""""""VIMWIKI"""""""""""""""""
+
+map <Leader>wo :Vimwiki2HTMLBrowse<CR>
+map <Leader>wc :Vimwiki2HTML<CR>
+
+let wiki_school = {}
+let wiki_school.path = '~/vimwiki/school/'
+
+let wiki_keys = {}
+let wiki_keys.path = '~/vimwiki/keys/'
+
+let g:vimwiki_list = [wiki_school, wiki_keys]
+
+"""""""""""""""ELELINE"""""""""""""""""
+
+let g:eleline_slim = 1
+
+"""""""""""""""SPACE-VIM-DARK"""""""""""""""""
+
+color space-vim-dark
+
+" Fix background colours in line column after loading theme
+hi LineNr ctermbg=NONE guibg=NONE
+
+"""""""""""""""NERDTREE"""""""""""""""""
+
+" Open nerdtree with shortcut
+map <C-e> :NERDTreeToggle<CR>
+
+"""""""""""""""COC"""""""""""""""""
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -194,104 +298,3 @@ let g:coc_global_extensions = [
   \ ]
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
-
-" End of COC stuffs
-
-color space-vim-dark
-set termguicolors
-hi LineNr ctermbg=NONE guibg=NONE
-
-let g:eleline_slim = 1
-
-" Set softtabs and length.
-set expandtab
-set shiftwidth=2
-set softtabstop=2
-autocmd Filetype c setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-autocmd Filetype javascript setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
-
-" Syntax dependent indenting.
-set autoindent
-set smartindent
-
-" Remove trailing whitespace when saving.
-autocmd BufWritePre * %s/\s\+$//e
-
-" Set numbers in the gutter.
-set number
-
-" Set line length marker
-set colorcolumn=80
-
-" Set ctags tags file
-set tags=.git/tags
-
-" Disable arrow buttons
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
-
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
- \ 'bg':      ['bg', 'Normal'],
- \ 'hl':      ['fg', 'Comment'],
- \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
- \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
- \ 'hl+':     ['fg', 'Statement'],
- \ 'info':    ['fg', 'PreProc'],
- \ 'border':  ['fg', 'Ignore'],
- \ 'prompt':  ['fg', 'Conditional'],
- \ 'pointer': ['fg', 'Exception'],
- \ 'marker':  ['fg', 'Keyword'],
- \ 'spinner': ['fg', 'Label'],
- \ 'header':  ['fg', 'Comment'] }
-
-let g:fzf_layout = { 'down': '~60%' }
-
-nmap <c-p> :Files<CR>
-
-let g:airline_theme='minimalist'
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_tabs = 1
-let g:airline#extensions#tabline#show_tab_count = 0
-let g:airline#extensions#tabline#tab_nr_type = 1
-
-" Settings for using buffers
-map bn :bn<cr>
-map bp :bp<cr>
-map bd :bd<cr>
-nmap <leader>b :Buffers<CR>
-
-" Settings for using tabs
-map tn :tabn<cr>
-map tp :tabp<cr>
-map td :tabd<cr>
-
-" Scroll when near top or bottom of screen
-set scrolloff=12
-
-autocmd! bufreadpost *.md set syntax=off
-
-if v:version >= 700
-  au BufLeave * let b:winview = winsaveview()
-  au BufEnter * if(exists('b:winview')) | call winrestview(b:winview) | endif
-endif
-
-nnoremap <Leader>a :Ack!<Space>
-
-" Ruby fixes
-let g:ruby_path = system('$HOME/.asdf/shims')
-set regexpengine=1
-
-let g:indentLine_setConceal = 2
-let g:indentLine_concealcursor = ""
-let g:indentLine_char = "┊"
-
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-map <Leader>lc :VimtexCompile<CR>
