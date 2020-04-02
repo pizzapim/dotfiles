@@ -74,8 +74,6 @@ call plug#begin('~/.vim/plugged')
 
 " File browser
 Plug 'scrooloose/nerdtree'
-" Spacemacs dark theme
-Plug 'liuchengxu/space-vim-dark'
 " Show git edits in sign column
 Plug 'airblade/vim-gitgutter'
 " Git commands inside Vim
@@ -96,6 +94,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'lervag/vimtex'
 " Personal knowledge base
 Plug 'vimwiki/vimwiki'
+" Gruvbox theme
+Plug 'morhetz/gruvbox'
 
 " Always do this one last:
 " Fancy icons in nerdtree (needs patched font)
@@ -158,12 +158,13 @@ let g:vimwiki_list = [wiki_school, wiki_keys]
 
 let g:eleline_slim = 1
 
-"""""""""""""""SPACE-VIM-DARK"""""""""""""""""
+"""""""""""""""GRUVBOX"""""""""""""""""
 
-color space-vim-dark
+let g:gruvbox_italic = 1
+let g:gruvbox_contrast_dark = 'hard'
+set background=dark
 
-" Fix background colours in line column after loading theme
-hi LineNr ctermbg=NONE guibg=NONE
+colorscheme gruvbox
 
 """""""""""""""NERDTREE"""""""""""""""""
 
