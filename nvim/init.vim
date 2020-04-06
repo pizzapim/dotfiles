@@ -27,6 +27,7 @@ set autoindent
 set smartindent
 set number
 set colorcolumn=80
+set mouse=a
 
 " Disable syntax in MarkDown files
 autocmd! bufreadpost *.md set syntax=off
