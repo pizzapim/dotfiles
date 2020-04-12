@@ -28,6 +28,7 @@ set smartindent
 set number
 set colorcolumn=80
 set mouse=a
+set linebreak
 
 " Disable syntax in MarkDown files
 autocmd! bufreadpost *.md set syntax=off
@@ -115,6 +116,9 @@ call plug#end()
 let g:indentLine_setConceal = 2
 let g:indentLine_concealcursor = ""
 let g:indentLine_char = "┊"
+
+" Disable conceal colours
+let g:indentLine_setColors = 0
 
 """""""""""""""VIMTEX"""""""""""""""""
 

@@ -119,3 +119,6 @@ PATH=$PATH:$HOME/.local/bin
 bind 'set mark-symlinked-directories on'
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# Traverse directories without cd
+shopt -s autocd
