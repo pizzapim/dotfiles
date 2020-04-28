@@ -8,6 +8,10 @@ if test -d $ASDF_DIR
   source $ASDF_DIR/completions/asdf.fish
 end
 
+# Limit JVM's memory usage
+set _JAVA_OPTIONS "-Xmx2g"
+set _JAVA_OPTS "-Xmx2g"
+
 # Abbreviations
 abbr l 'ls -CF'
 abbr gp 'git push'
@@ -25,3 +29,24 @@ abbr upgrade 'sudo apt upgrade'
 
 # Aliases
 alias vi 'nvim'
+
+set PWD_FILE /tmp/whereami
+
+# Save current location after every new command.
+function saveloc --on-event fish_prompt
+  pwd > $PWD_FILE
+end
+
+# Check if the shell is interactive.
+if status is-interactive
+  # Check if the location file is readable.
+  if test -f /tmp/whereami
+    # If no other shell is found, start in ~.
+    if test (ps -C fish | wc -l) -gt 2
+      cd (cat $PWD_FILE)
+    else
+      cd ~
+      pwd > $PWD_FILE
+    end
+  end
+end

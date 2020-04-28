@@ -166,7 +166,7 @@ exec nitrogen --restore
 
 ### Custom key bindings ###
 
-bindsym $mod+equal exec setxkbmap -option 'caps:ctrl_modifier' && xcape -e 'Caps_Lock=Escape' && xmodmap -e "keycode 37="
+bindsym $mod+equal exec setxkbmap -option 'caps:ctrl_modifier' && xcape -e 'Caps_Lock=Escape' && xmodmap -e "keycode 37=" && pkill panel-2-i3-work
 
 # Screenshot bindings
 bindsym Print exec xfce4-screenshooter --clipboard
@@ -177,8 +177,11 @@ bindsym $mod+shift+x exec i3lock --nofork  --ignore-empty-password --show-failed
 # Default workspace settings
 for_window [class="Spotify"] move to workspace $ws0
 assign [class="Telegram"] $ws9
+
+# Default floating applications
 for_window [class="keepassxc"] floating enable
 for_window [class="matplotlib"] floating enable
+for_window [class="Galculator"] floating enable
 
 client.focused          #665c54 #665c54 #eddbb2 #2e9ef4   #665c54
 client.focused_inactive #282828 #5f676a #ffffff #484e50   #5f676a
