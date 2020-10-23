@@ -143,7 +143,7 @@ let g:fzf_colors =
 
 let g:fzf_layout = { 'down': '~60%' }
 
-nmap <c-p> :Files<CR>
+nmap <c-p> :GFiles<CR>
 nmap <leader>bl :Buffers<CR>
 
 """""""""""""""VIMWIKI"""""""""""""""""

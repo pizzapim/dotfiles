@@ -166,7 +166,7 @@ exec nitrogen --restore
 
 ### Custom key bindings ###
 
-bindsym $mod+equal exec setxkbmap -option 'caps:ctrl_modifier' && xcape -e 'Caps_Lock=Escape' && xmodmap -e "keycode 37=" && pkill panel-2-i3-work
+bindsym $mod+equal exec pkill panel-2-i3-work
 
 # Screenshot bindings
 bindsym Print exec xfce4-screenshooter --clipboard

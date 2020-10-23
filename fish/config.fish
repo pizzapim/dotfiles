@@ -50,3 +50,8 @@ if status is-interactive
     end
   end
 end
+
+# Android stuff
+set --export ANDROID_AVD_HOME $HOME/.android/avd
+set --export ANDROID_HOME $HOME/Android/Sdk
+set --export ANDROID_SDK_ROOT $HOME/Android/Sdk
