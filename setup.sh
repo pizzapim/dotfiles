@@ -12,3 +12,5 @@ link .bashrc $HOME
 link .bash_aliases $HOME
 link nvim $HOME/.config
 link fish $HOME/.config
+link .zshrc $HOME
+link settings.json $HOME/.config/VSCodium/User

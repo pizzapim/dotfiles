@@ -1,0 +1,5 @@
+{
+    "clangd.path": "/home/pizzapim/.config/VSCodium/User/globalStorage/llvm-vs-code-extensions.vscode-clangd/install/10.0.0/clangd_10.0.0/bin/clangd",
+    "workbench.colorTheme": "Gruvbox Material Dark",
+    "workbench.startupEditor": "newUntitledFile"
+}
