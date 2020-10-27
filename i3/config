@@ -135,7 +135,7 @@ bar {
 }
 
 # Borders
-for_window [class=".*"] border pixel 5
+for_window [class=".*"] border pixel 0
 
 # Plasma compatibility improvements
 for_window [window_role="pop-up"] floating enable
