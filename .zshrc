@@ -1,3 +1,6 @@
+. $HOME/.asdf/asdf.sh
+fpath=(${ASDF_DIR}/completions $fpath)
+
 # Set up the prompt
 
 autoload -Uz promptinit
@@ -35,8 +38,6 @@ zstyle ':completion:*' verbose true
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
-
-. $HOME/.asdf/asdf.sh
 
 ALIASES_FILE=$HOME/.bash_aliases
 if [ -f $ALIASES_FILE ]; then
