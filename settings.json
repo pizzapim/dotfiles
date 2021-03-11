@@ -3,5 +3,8 @@
     "workbench.colorTheme": "Gruvbox Material Dark",
     "workbench.startupEditor": "newUntitledFile",
     "window.zoomLevel": 1,
-    "elixirLS.suggestSpecs": false
+    "elixirLS.suggestSpecs": false,
+    "vscode-neovim.neovimExecutablePaths.linux": "/home/pizzapim/local/nvim/bin/nvim",
+    "latex-workshop.message.update.show": false,
+    "explorer.confirmDragAndDrop": false
 }

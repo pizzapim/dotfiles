@@ -122,3 +122,5 @@ bind 'set mark-symlinked-directories on'
 
 # Traverse directories without cd
 shopt -s autocd
+
+PATH=$PATH:$HOME/local/nvim/bin
