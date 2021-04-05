@@ -5,6 +5,7 @@ set expandtab
 set smartindent
 set signcolumn=yes
 set conceallevel=0
+set updatetime=100
 
 " Auto-install vim-plug.
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
@@ -27,6 +28,7 @@ Plug 'gfanto/fzf-lsp.nvim'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary'
 Plug 'lervag/vimtex'
+Plug 'airblade/vim-gitgutter'
 
 call plug#end()
 
@@ -85,6 +87,9 @@ augroup CompletionTriggerCharacter
     autocmd BufEnter * let g:completion_trigger_character = ['.']
     autocmd BufEnter *.xml let g:completion_trigger_character = ['<']
 augroup end
+
+" Popups from completion shows markdown errors, disable markdown parsing.
+hi markdownError guifg=None guibg=None
 
 " vimtex settings
 let g:vimtex_compiler_latexmk = {
