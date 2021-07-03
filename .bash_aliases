@@ -18,4 +18,4 @@ alias xdg='xdg-open'
 alias update='sudo apt update'
 alias upgrade='sudo apt upgrade'
 
-# alias vi='nvim'
+alias vi='nvim'

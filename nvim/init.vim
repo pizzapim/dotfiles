@@ -6,6 +6,7 @@ set smartindent
 set signcolumn=yes
 set conceallevel=0
 set updatetime=100
+set completeopt=menuone,noselect
 
 " Auto-install vim-plug.
 if empty(glob('~/.config/nvim/autoload/plug.vim'))
@@ -18,21 +19,23 @@ endif
 call plug#begin('~/.config/nvim/plugged')
 
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
 Plug 'gruvbox-community/gruvbox'
 Plug 'Yggdroot/indentLine'
 Plug 'scrooloose/nerdtree'
-Plug '~/.fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'gfanto/fzf-lsp.nvim'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary'
 Plug 'lervag/vimtex'
 Plug 'airblade/vim-gitgutter'
+Plug 'petRUShka/vim-opencl'
+Plug 'hrsh7th/nvim-compe'
+Plug 'elixir-editors/vim-elixir'
+
+" All for telescope
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
 call plug#end()
-
-let g:completion_confirm_key = "<tab>"
 
 " Theming.
 
@@ -46,9 +49,6 @@ endif
 
 colorscheme gruvbox
 set background=dark
-
-set completeopt=menuone,noinsert,noselect
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 
 " Setup language servers.
 lua << EOF
@@ -69,41 +69,62 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-
-  -- local completion = require('completion')
-  -- completion.on_attach()
 end
 
 require'lspconfig'.clangd.setup{ on_attach=on_attach }
+require'lspconfig'.pyright.setup{ on_attach=on_attach }
+require'lspconfig'.gopls.setup{ on_attach=on_attach }
 
 EOF
 
-" Autocomplete on all buffers.
-autocmd BufEnter * lua require'completion'.on_attach()
-
-augroup CompletionTriggerCharacter
-    autocmd!
-    autocmd BufEnter * let g:completion_trigger_character = ['.']
-    autocmd BufEnter *.xml let g:completion_trigger_character = ['<']
-augroup end
+nnoremap <C-p> :lua require'telescope.builtin'.find_files{}<CR>
+nnoremap <C-b> :lua require'telescope.builtin'.buffers{}<CR>
+nnoremap <C-s> :lua require'telescope.builtin'.lsp_document_symbols{}<CR>
 
 " Popups from completion shows markdown errors, disable markdown parsing.
 hi markdownError guifg=None guibg=None
 
 " vimtex settings
 let g:vimtex_compiler_latexmk = {
-      \ 'continuous' : 1,
-      \}
+    \ 'options' : [
+    \   '-pdf',
+    \   '-shell-escape',
+    \   '-verbose',
+    \   '-file-line-error',
+    \   '-synctex=1',
+    \   '-interaction=nonstopmode',
+    \ ],
+    \}
 let g:vimtex_syntax_conceal_default=0
 
 " Keybindings.
 let mapleader = "\<Space>"
 nnoremap <silent> <leader>f <cmd>lua vim.lsp.buf.formatting()<CR>
-nnoremap <C-b> :Buffers<CR>
 nnoremap <C-e> :NERDTreeToggle<CR>
-nnoremap <C-s> :DocumentSymbols<CR>
-" File select, only git files if in git project.
-nnoremap <expr> <C-p> (len(system('git rev-parse')) ? ':Files' : ':GFiles')."\<cr>"
 nnoremap <leader>p "*p
 nnoremap <leader>y "+y
+
+" Completion settings
+let g:compe = {}
+let g:compe.enabled = v:true
+let g:compe.autocomplete = v:true
+let g:compe.debug = v:false
+let g:compe.min_length = 1
+let g:compe.preselect = 'enable'
+let g:compe.throttle_time = 80
+let g:compe.source_timeout = 200
+let g:compe.incomplete_delay = 400
+let g:compe.max_abbr_width = 100
+let g:compe.max_kind_width = 100
+let g:compe.max_menu_width = 100
+let g:compe.documentation = v:true
+
+let g:compe.source = {}
+let g:compe.source.path = v:true
+let g:compe.source.buffer = v:true
+let g:compe.source.calc = v:true
+let g:compe.source.nvim_lsp = v:true
+let g:compe.source.nvim_lua = v:true
+let g:compe.source.vsnip = v:true
+let g:compe.source.ultisnips = v:true
+inoremap <silent><expr> <tab>      compe#confirm('<CR>')
